@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center">
+
+    <div class="invite-friends-container">
+        <h5 class="invite-header">Invite friends</h5>
+        <div class="invite-form">
+            <input type="email" placeholder="Enter an email address" [(ngModel)]="inviteEmail" class="form-control" />
+            <button (click)="sendInvite()" class="btn btn-success mt-2">Send invite</button>
+        </div>
+    
+        <div class="social-share mt-3">
+            <button class="btn btn-facebook"><i class="fab fa-facebook-f"></i> Share</button>
+            <button class="btn btn-twitter"><i class="fab fa-twitter"></i> Tweet</button>
+        </div>
+    </div>
+</div>

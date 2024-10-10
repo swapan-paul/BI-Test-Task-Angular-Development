@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h5 class="modal-title">Choose payer</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div *ngFor="let payer of allPayers" class="payer-option">
+        <label>
+            <input type="checkbox" [checked]="isPayerSelected(payer)" (change)="togglePayer(payer)">
+            {{ payer.memberName }}
+        </label>
+    </div>
+
+    <div class="multiple-payer-section" *ngIf="multiplePayers">
+        <h6>Multiple people</h6>
+        <div *ngFor="let payer of selectedPayers" class="payer-input">
+            <label class="me-4">{{ payer.memberName }}</label>
+            <input type="number" [(ngModel)]="payer.amount" placeholder="$" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="confirmPayers()">Confirm</button>
+</div>
