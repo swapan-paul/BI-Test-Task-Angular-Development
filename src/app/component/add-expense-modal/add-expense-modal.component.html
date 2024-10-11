@@ -40,11 +40,11 @@
             <div class="col-md-10">
                 <span *ngIf="!isNgSelectVisible" class="ms-3 font-weight-bold text-primary"
                     (click)="selectGroupMember()" style="cursor: pointer;">
-                    {{ selectedGroup ? selectedGroup.groupTitle + "'s all members" : 'Select group members' }}
+                    {{ selectedGroup ? selectedGroup.groupTitle + "'s all membersWithoutCreater" : 'Select group members' }}
                 </span>
 
-                <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.members"
-                    bindLabel="memberName" bindValue="memberId" [(ngModel)]="selectedMembers" [multiple]="true"
+                <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.membersWithoutCreater"
+                    bindLabel="memberName" bindValue="memberId" [(ngModel)]="selectedMembers1" [multiple]="true"
                     formControlName="withYou" class="form-control">
                 </ng-select>
             </div>

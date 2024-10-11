@@ -127,10 +127,11 @@ export class DataService {
 
 
 
-  updateGroupMembers(groupId: string, updatedMembers: any[]) {
+  updateGroupMembers(groupId: string, updatedMembers: any[], membersWithoutCreater: any[]) {
     this.db.collection('Groups').doc(groupId).update({
       members: updatedMembers,
-      groupId: groupId
+      groupId: groupId,
+      membersWithoutCreater: membersWithoutCreater
     })
       .then(() => {
         console.log('Group members updated with IDs');

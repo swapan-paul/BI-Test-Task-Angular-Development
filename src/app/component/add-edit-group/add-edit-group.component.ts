@@ -157,7 +157,7 @@ export class AddEditGroupComponent implements OnInit {
                 }
                 ]
 
-                this.dataService.updateGroupMembers(response.id, this.addCreaterUser);
+                this.dataService.updateGroupMembers(response.id, this.addCreaterUser, updatedMembers);
               },
               (error: any) => {
                 console.error('Error while adding friends with IDs:', error);

@@ -28,6 +28,7 @@ export class AddExpenseModalComponent implements OnInit {
   filteredMembers: any;
   anotherFilterGroup: any[] = [];
   perPerson: any;
+  selectedMembers1: any[] = [];
 
   constructor(public activeModal: NgbActiveModal,
     private fb: FormBuilder,
@@ -106,6 +107,11 @@ export class AddExpenseModalComponent implements OnInit {
       const allMemberIds = this.selectedGroup.members.map((member: any) => member.memberId);
       this.expenseForm.patchValue({ withYou: allMemberIds });
       this.selectedMembers = allMemberIds;
+    }
+    if (this.selectedGroup && this.selectedGroup.membersWithoutCreater) {
+      const allMemberIds = this.selectedGroup.membersWithoutCreater.map((member: any) => member.memberId);
+      this.expenseForm.patchValue({ withYou: allMemberIds });
+      this.selectedMembers1 = allMemberIds;
     }
     // this.filterMembers();
   }
