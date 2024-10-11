@@ -31,14 +31,14 @@ export class AllExpensesViewComponent implements OnInit {
     if (calculatedBalances && typeof calculatedBalances === 'object') {
       return Object.keys(calculatedBalances);
     }
-    return []; // Return an empty array if calculatedBalances is not valid
+    return [];
   }
 
   getMemberName(memberId: string, calculatedBalances: any): string {
     if (calculatedBalances && calculatedBalances[memberId]) {
       return calculatedBalances[memberId].memberName || 'Unknown Member';
     }
-    return 'Unknown Member'; // Default value if not found
+    return 'Unknown Member';
   }
 
 
@@ -51,12 +51,11 @@ export class AllExpensesViewComponent implements OnInit {
       let totalPaid = 0;
       this.totalOwes = 0;
 
-      // Calculate total paid and total owes
       Object.keys(balances).forEach((otherMemberId: string) => {
         if (balances[otherMemberId] > 0) {
-          totalPaid += balances[otherMemberId]; // The member is owed this amount
+          totalPaid += balances[otherMemberId];
         } else {
-        this.totalOwes -= balances[otherMemberId]; // The member owes this amount
+        this.totalOwes -= balances[otherMemberId];
         }
       });
 
@@ -142,7 +141,7 @@ export class AllExpensesViewComponent implements OnInit {
     const modalRef = this.modalService.open(AddExpenseModalComponent, { size: 'lg' });
 
     if (this.selectedGroup) {
-      console.log('this.selectedGroup+++++++', this.selectedGroup);
+      // console.log('this.selectedGroup+++++++', this.selectedGroup);
       modalRef.componentInstance.selectedGroup = this.selectedGroup;
     }
 
