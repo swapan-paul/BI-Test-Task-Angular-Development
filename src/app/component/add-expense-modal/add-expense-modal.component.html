@@ -35,7 +35,7 @@
 
         <div class="form-group d-flex justify-content-center align-items-center">
             <div class="col-md-2">
-                <label class="font-weight-bold">With you and:</label>
+                <label class="font-weight-bold">Group members:</label>
             </div>
             <div class="col-md-10">
                 <span *ngIf="!isNgSelectVisible" class="ms-3 font-weight-bold text-primary"
@@ -43,14 +43,14 @@
                     {{ selectedGroup ? selectedGroup.groupTitle + "'s all members" : 'Select group members' }}
                 </span>
 
-                <!-- <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.members"
+                <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.members"
                     bindLabel="memberName" bindValue="memberId" [(ngModel)]="selectedMembers" [multiple]="true"
                     formControlName="withYou" class="form-control">
-                </ng-select> -->
-                <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.membersWithoutCreater"
+                </ng-select>
+                <!-- <ng-select *ngIf="isNgSelectVisible" #ngSelectRef [items]="selectedGroup?.membersWithoutCreater"
                     bindLabel="memberName" bindValue="memberId" [(ngModel)]="selectedMembers1" [multiple]="true"
                     formControlName="withYou" class="form-control">
-                </ng-select>
+                </ng-select> -->
             </div>
         </div>
 

@@ -161,15 +161,15 @@ export class AddExpenseModalComponent implements OnInit {
     if (this.expenseForm.valid) {
 
 
-      const withYouControl = this.expenseForm.get('withYou');
+      // const withYouControl = this.expenseForm.get('withYou');
 
-      if (withYouControl) {
-        const currentWithYouValue = withYouControl.value || [];
-        if (!currentWithYouValue.includes(this.groupCreaterUid)) {
-          currentWithYouValue.push(this.groupCreaterUid);
-          withYouControl.setValue(currentWithYouValue);
-        }
-      }
+      // // if (withYouControl) {
+      // //   const currentWithYouValue = withYouControl.value || [];
+      // //   if (!currentWithYouValue.includes(this.groupCreaterUid)) {
+      // //     currentWithYouValue.push(this.groupCreaterUid);
+      // //     withYouControl.setValue(currentWithYouValue);
+      // //   }
+      // // }
 
 
       const expenseData = this.expenseForm.value;
