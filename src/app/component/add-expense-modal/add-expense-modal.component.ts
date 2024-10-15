@@ -110,7 +110,7 @@ export class AddExpenseModalComponent implements OnInit {
     }
     if (this.selectedGroup && this.selectedGroup.membersWithoutCreater) {
       const allMemberIds = this.selectedGroup.membersWithoutCreater.map((member: any) => member.memberId);
-      this.expenseForm.patchValue({ withYou: allMemberIds });
+      // this.expenseForm.patchValue({ withYou: allMemberIds });
       this.selectedMembers1 = allMemberIds;
     }
     // this.filterMembers();
@@ -154,8 +154,26 @@ export class AddExpenseModalComponent implements OnInit {
         memberName: this.selectedGroup.groupCreatedBy,
       })
     }
+  
 
     if (this.expenseForm.valid) {
+
+
+      // Ensure withYou control exists and get its value
+      const withYouControl = this.expenseForm.get('withYou');
+
+      // Push the new element to withYou control
+      if (withYouControl) {
+        const currentWithYouValue = withYouControl.value || [];
+        if (!currentWithYouValue.includes(this.groupCreaterUid)) {
+          currentWithYouValue.push(this.groupCreaterUid); // Push only if it doesn't already exist
+          withYouControl.setValue(currentWithYouValue);
+        }
+      } 
+
+
+
+
       const expenseData = this.expenseForm.value;
       // console.log('Expense data:', expenseData);
 
