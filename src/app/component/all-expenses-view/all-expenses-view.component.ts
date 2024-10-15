@@ -74,9 +74,15 @@ export class AllExpensesViewComponent implements OnInit {
         balanceText = `has no balance`;
       }
 
-      return `${memberData.memberName} paid INR ${paymentAmount} and ${balanceText}`;
+      if (`paid INR ${paymentAmount} and ${balanceText}` != `paid INR 0 and has no balance`){
+
+        return `${memberData.memberName} paid INR ${paymentAmount} and ${balanceText}`;
+      }
+
     }
-    return 'Member not found';
+    
+    // return 'Member not found';
+    return '';
   }
 
 
