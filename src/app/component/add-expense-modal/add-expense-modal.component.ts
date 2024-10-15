@@ -154,7 +154,7 @@ export class AddExpenseModalComponent implements OnInit {
         memberName: this.selectedGroup.groupCreatedBy,
       })
     }
-  
+
 
     if (this.expenseForm.valid) {
 
@@ -167,7 +167,7 @@ export class AddExpenseModalComponent implements OnInit {
           currentWithYouValue.push(this.groupCreaterUid);
           withYouControl.setValue(currentWithYouValue);
         }
-      } 
+      }
 
 
       const expenseData = this.expenseForm.value;
