@@ -159,23 +159,18 @@ export class AddExpenseModalComponent implements OnInit {
     if (this.expenseForm.valid) {
 
 
-      // Ensure withYou control exists and get its value
       const withYouControl = this.expenseForm.get('withYou');
 
-      // Push the new element to withYou control
       if (withYouControl) {
         const currentWithYouValue = withYouControl.value || [];
         if (!currentWithYouValue.includes(this.groupCreaterUid)) {
-          currentWithYouValue.push(this.groupCreaterUid); // Push only if it doesn't already exist
+          currentWithYouValue.push(this.groupCreaterUid);
           withYouControl.setValue(currentWithYouValue);
         }
       } 
 
 
-
-
       const expenseData = this.expenseForm.value;
-      // console.log('Expense data:', expenseData);
 
       this.dataService.addExpense(expenseData).subscribe(
         (response: any) => {
