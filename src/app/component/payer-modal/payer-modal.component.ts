@@ -37,7 +37,7 @@ export class PayerModalComponent implements OnInit {
       this.selectedPayers.push({ ...payer, amount: 0 });
     }
 
-    this.multiplePayers = this.selectedPayers.length > 1;
+    this.multiplePayers = this.selectedPayers.length >= 1;
     // console.log('Updated selectedPayers:', this.selectedPayers);
   }
 
