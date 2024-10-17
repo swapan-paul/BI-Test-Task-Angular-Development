@@ -93,11 +93,13 @@ export class AddExpenseModalComponent implements OnInit {
     const amount = this.expenseForm.get('amount')?.value;
     const withYouArray = this.expenseForm.get('withYou')?.value;
 
-    if (amount && Array.isArray(withYouArray) && withYouArray.length > 0) {
+    if (amount && Array.isArray(withYouArray) && withYouArray.length >= 0) {
       // console.log('Per person amount:', this.perPerson);
-      console.log('withYouArray.length:', withYouArray.length);
+      // console.log('amount:', amount);
+      // console.log('withYouArray.length:', withYouArray.length);
+      // console.log('withYouArray.length + 1:', withYouArray.length + 1);
       
-      this.perPerson = amount / (withYouArray.length);
+      this.perPerson = amount / (withYouArray.length + 1);
     } else {
       // console.log('Please enter a valid amount and select people to split the expense.');
     }
