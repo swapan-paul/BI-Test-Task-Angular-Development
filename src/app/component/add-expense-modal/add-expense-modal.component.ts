@@ -29,16 +29,41 @@ export class AddExpenseModalComponent implements OnInit {
   anotherFilterGroup: any[] = [];
   perPerson: any;
   selectedMembers1: any[] = [];
+  allMemberIds: any[] = [];
 
   constructor(public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private dataService: DataService,
     private modalService: NgbModal) {
 
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+    // this.groupCreatedBy = localStorage.getItem('userName') || '';
+    // this.groupCreaterUid = localStorage.getItem('uId') || '';
+    // this.expenseForm = this.fb.group({
+    //   withYou: [[]],
+    //   description: ['', Validators.required],
+    //   amount: ['', [Validators.required, Validators.pattern(/^\d+\.?\d{0,2}$/)]],
+    //   date: ['', Validators.required],
+    //   notes: [''],
+    //   group: [''],
+    //   groupId: [''],
+    //   groupTitle: [''],
+    //   groupCreaterUid: [''],
+    //   groupCreatedBy: [''],
+    //   payersData: [''],
+    //   expenseIcon: [''],
+    //   selectedGroupControl: [this.selectedGroup?.groupTitle || '', Validators.required]
+    // });
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+
+    // <!-- ----------------------- desable---------------------------------------------------- -->
+
     this.groupCreatedBy = localStorage.getItem('userName') || '';
     this.groupCreaterUid = localStorage.getItem('uId') || '';
     this.expenseForm = this.fb.group({
-      withYou: [[], Validators.required],
+      withYou: [this.allMemberIds ? this.allMemberIds : []],
       description: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/^\d+\.?\d{0,2}$/)]],
       date: ['', Validators.required],
@@ -52,6 +77,11 @@ export class AddExpenseModalComponent implements OnInit {
       expenseIcon: [''],
       selectedGroupControl: [this.selectedGroup?.groupTitle || '', Validators.required]
     });
+
+    // <!-- ----------------------- desable---------------------------------------------------- -->
+
+
+
 
     this.expenseForm.valueChanges.subscribe(() => {
       this.calculatePerPersonAmount();
@@ -106,14 +136,16 @@ export class AddExpenseModalComponent implements OnInit {
 
   setAllMembers() {
     if (this.selectedGroup && this.selectedGroup.members) {
-      const allMemberIds = this.selectedGroup.members.map((member: any) => member.memberId);
-      this.expenseForm.patchValue({ withYou: allMemberIds });
-      this.selectedMembers = allMemberIds;
+      this.allMemberIds = this.selectedGroup.members.map((member: any) => member.memberId);
+      this.expenseForm.patchValue({ withYou: this.allMemberIds });
+      this.selectedMembers = this.allMemberIds;
     }
+
+    
     if (this.selectedGroup && this.selectedGroup.membersWithoutCreater) {
-      const allMemberIds = this.selectedGroup.membersWithoutCreater.map((member: any) => member.memberId);
+      const allMemberIds1 = this.selectedGroup.membersWithoutCreater.map((member: any) => member.memberId);
       // this.expenseForm.patchValue({ withYou: allMemberIds });
-      this.selectedMembers1 = allMemberIds;
+      this.selectedMembers1 = allMemberIds1;
     }
     // this.filterMembers();
   }
@@ -145,9 +177,15 @@ export class AddExpenseModalComponent implements OnInit {
 
     }
 
-    if (!this.expenseForm.get('withYou')?.value || this.expenseForm.get('withYou')?.value.length === 0) {
-      this.setAllMembers();
-    }
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+    // if (!this.expenseForm.get('withYou')?.value || this.expenseForm.get('withYou')?.value.length === 0) {
+    //   this.setAllMembers();
+    // }
+
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+
     if (!this.expenseForm.get('payersData')?.value || this.expenseForm.get('payersData')?.value.length === 0) {
       this.payersData.push({
         amount: this.expenseForm.value.amount,
@@ -160,16 +198,18 @@ export class AddExpenseModalComponent implements OnInit {
 
     if (this.expenseForm.valid) {
 
+      // <!-- ----------------------- desable---------------------------------------------------- -->
 
-      // const withYouControl = this.expenseForm.get('withYou');
+      const withYouControl = this.expenseForm.get('withYou');
 
-      // // if (withYouControl) {
-      // //   const currentWithYouValue = withYouControl.value || [];
-      // //   if (!currentWithYouValue.includes(this.groupCreaterUid)) {
-      // //     currentWithYouValue.push(this.groupCreaterUid);
-      // //     withYouControl.setValue(currentWithYouValue);
-      // //   }
-      // // }
+      if (withYouControl) {
+        const currentWithYouValue = withYouControl.value || [];
+        if (!currentWithYouValue.includes(this.groupCreaterUid)) {
+          currentWithYouValue.push(this.groupCreaterUid);
+          withYouControl.setValue(currentWithYouValue);
+        }
+      }
+      // <!-- ----------------------- desable---------------------------------------------------- -->
 
 
       const expenseData = this.expenseForm.value;
@@ -215,17 +255,42 @@ export class AddExpenseModalComponent implements OnInit {
       ...this.selectedGroup.members,
     ];
 
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+
+    // let filteredMembers = groupMembers.filter(member =>
+    //   this.selectedMembers.includes(member.memberId)
+    // );
+
+    // filteredMembers = [...filteredMembers,
+    //   {
+    //   memberId: this.selectedGroup.groupCreaterUid,
+    //   memberName: this.selectedGroup.groupCreatedBy,
+    //   groupCreater: true
+      // }];
+
+    // <!-- ----------------------- Enable---------------------------------------------------- -->
+
+    // <!-- ----------------------- desable---------------------------------------------------- -->
+
     let filteredMembers = groupMembers.filter(member =>
-      this.selectedMembers.includes(member.memberId)
+      this.selectedMembers1.includes(member.memberId)
     );
 
     filteredMembers = [...filteredMembers,
-      //   {
-      //   memberId: this.selectedGroup.groupCreaterUid,
-      //   memberName: this.selectedGroup.groupCreatedBy,
-      //   groupCreater: true
-      // }
+        {
+        memberId: this.selectedGroup.groupCreaterUid,
+        memberName: this.selectedGroup.groupCreatedBy,
+        groupCreater: true
+      }
     ];
+    // <!-- ----------------------- desable---------------------------------------------------- -->
+
+
+
+
+
+    
 
     const modalRef = this.modalService.open(PayerModalComponent, { size: 'lg' });
     modalRef.componentInstance.allPayers = this.selectedMembers == undefined ? this.selectedGroup : filteredMembers;
