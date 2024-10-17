@@ -31,10 +31,12 @@
                                 class="small-icon me-3 rounded-circle" />
                             <div>
                                 <h5 class="text-primary mb-1">{{ expense.description }} Expense</h5>
-                                <p class="text-muted mb-0"><strong>Group:</strong> <span class="text-warning">{{
+                                <p class="text-muted mb-0"><strong>Group: </strong> <span class="text-warning">{{
                                         expense.groupTitle }}</span></p>
-                                <p class="text-muted"><strong>Total Amount:</strong> <span class="text-success">{{
+                                <p class="text-muted mb-0"><strong>Total Amount: </strong> <span class="text-success">{{
                                         expense.amount | currency: 'INR' }}</span></p>
+                                <p class="text-muted" *ngIf="expense.notes !== ''"><strong>Notes: </strong> <span class="text-info">{{
+                                        expense.notes }}</span></p>
                             </div>
                         </div>
 
